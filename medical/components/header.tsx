@@ -11,8 +11,8 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
     return (
-        <div className={cn("h-fit bg-emerald-400  p-6", className)}>
-            <div className="w-full mb-4 flex items-center justify-between">
+        <div className={cn(" mx-auto bg-emerald-400 p-[1rem]", className)}>
+            <div className="w-full mt-2 flex items-center justify-between">
             {children}
                 <div className="hidden md:flex gap-x-2 items-center ">
                     <button className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity-75 transition  ">

@@ -1,6 +1,8 @@
 import Header from "@/components/header";
+import { initialProfile } from "@/lib/initial-profile";
 
-export default function Home() {
+  const   Home=async()=> {
+  const profile=await initialProfile();
   return (
     <div className="bg-white rounded-lg h-screen w-full overflow-hidden overflow-y-auto">
         <Header>
@@ -18,3 +20,4 @@ export default function Home() {
 
   );
 }
+export default Home;

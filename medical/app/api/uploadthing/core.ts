@@ -9,6 +9,7 @@ const handleAuth=()=>{
  
 // FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {
+  symptomImage:f({image:{maxFileCount:1 }}).middleware(()=>handleAuth()).onUploadComplete(()=>{}),
   messageFile:f(["image","pdf","video"]).middleware(()=>handleAuth()).onUploadComplete(()=>{})
 } satisfies FileRouter;
  

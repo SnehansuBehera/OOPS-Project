@@ -18,7 +18,6 @@ model Profile{
   name String
   imageUrl String @db.Text
   email String @db.Text
-  symptoms Symptom[]
   members Member[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -26,13 +25,11 @@ model Profile{
 model Symptom{
   id String @id @default(uuid())
   name String
-  profileId String
-  profile Profile @relation(fields: [profileId],references:[id],onDelete:Cascade)
+  imageUrl String @db.Text
   remedies Remedy[]
   diseases Disease[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  @@index([profileId])
 }
 model Remedy{
   id String @id @default(uuid())

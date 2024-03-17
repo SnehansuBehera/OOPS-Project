@@ -3,6 +3,7 @@ import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import Sidebar from "@/components/Sidebar";
+import { ModalProvider } from "@/providers/modal-provider";
 
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={font.className}>
+          <ModalProvider/>
           <Sidebar>
           {children}
           </Sidebar>

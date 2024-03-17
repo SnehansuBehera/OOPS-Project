@@ -1,8 +1,11 @@
-import { Symptom } from "@prisma/client";
+import { Disease, Remedy } from "@prisma/client";
+import { SymptomWithRemediesWithDisease } from "@/types";
 import {create }from"zustand"
 export type ModalType="createSymptom"|"editSymptom"|"deleteSymptom"|"members"|"messageFile"|"deleteMessage";
 interface ModalData{
-    symptom?:Symptom;
+    symptom?:SymptomWithRemediesWithDisease;
+    disease?:Disease;
+    remedy?:Remedy;
     apiUrl?:string;
     query?:Record<string,any>;
 }

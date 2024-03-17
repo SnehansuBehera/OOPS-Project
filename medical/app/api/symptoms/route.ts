@@ -29,3 +29,25 @@ export async function POST(req:Request) {
     }
     
 }
+
+export async function GET(req: Request) {
+    try {
+        const profile = await currentProfile();
+        if (!profile) {
+            return new NextResponse("Unauthorized", { status: 401 });
+        }
+        // Fetch all symptoms
+        const symptom = await db.symptom.findMany({
+            include: {
+                diseases: true,
+                remedies: true,
+            },
+        });
+
+
+        return NextResponse.json(symptom);
+    } catch (error) {
+        console.error("[SYMPTOM_GET]", error);
+        return new NextResponse("Internal Error", { status: 500 });
+    }
+}

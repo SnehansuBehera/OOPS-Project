@@ -58,3 +58,32 @@ export async function PATCH(req: Request, { params }: { params: { symptomId: str
         return new NextResponse("Internal Error", { status: 500 });
     }
 }
+export async function DELETE(req: Request, { params }: { params: { symptomId: string } }) {
+    try {
+        const { symptomId } = params;
+
+        // Check if profile is authenticated
+        const profile = await currentProfile();
+        if (!profile) {
+            return new NextResponse("Unauthorized", { status: 401 });
+        }
+
+        // Retrieve the existing symptom
+        const existingSymptom = await db.symptom.findUnique({
+            where: { id: symptomId },
+        });
+
+        if (!existingSymptom) {
+            return new NextResponse("Symptom not found", { status: 404 });
+        }
+
+        // Delete the symptom
+        const deletedSymptom=await db.symptom.delete({
+            where: { id: symptomId },
+        });
+        return NextResponse.json(deletedSymptom);
+    } catch (error) {
+        console.error("[SYMPTOM_DELETE]", error);
+        return new NextResponse("Internal Error", { status: 500 });
+    }
+}

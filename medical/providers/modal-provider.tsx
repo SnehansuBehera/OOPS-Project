@@ -1,6 +1,7 @@
 "use client";
 
 import { CreateSymptomModal } from "@/components/modals/create-symptom";
+import { DeleteSymptomModal } from "@/components/modals/delete-symptom";
 import { EditSymptomModal } from "@/components/modals/edit-symptom";
 import { useEffect, useState } from "react";
 export const ModalProvider=()=>{
@@ -16,6 +17,7 @@ export const ModalProvider=()=>{
         <>
         <CreateSymptomModal/>
         <EditSymptomModal/>
+        <DeleteSymptomModal/>
         
         </>
     )

@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const formSchema = z.object({
+    id:z.string(),
     name: z.string().min(1, { message: "Symptom name required" }),
     imageUrl: z.string().min(1, { message: "Symptom image required" }),
     diseases: z.string(),
@@ -27,6 +28,7 @@ export const EditSymptomModal = () => {
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
+            id:"",
             imageUrl: "",
             name:  "",
             diseases:"",
@@ -47,8 +49,8 @@ export const EditSymptomModal = () => {
         if (symptom) {
             form.setValue("name", symptom.name);
             form.setValue("imageUrl", symptom.imageUrl);
-            const remedyNames = symptom.remedies.map((remedy) => remedy.name);
-            const diseaseNames = symptom.diseases.map((disease) => disease.name);
+            const remedyNames = symptom.remedies ? symptom.remedies.map((remedy: any) => remedy.name) : [];
+            const diseaseNames = symptom.diseases ? symptom.diseases.map((disease: any) => disease.name) : [];
             const remediesString = remedyNames.join(", ");
             const diseasesString = diseaseNames.join(", ");
             form.setValue("remedies", remediesString);
@@ -58,8 +60,19 @@ export const EditSymptomModal = () => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            await axios.patch(`/api/symptoms/${symptom?.id}`, values);
-            form.reset();
+            const response = await axios.patch(`/api/symptoms/${values?.id}`, values);            
+            const updatedSymptom = response.data; // Assuming the response contains the updated symptom data
+            form.reset(); // Reset the form first to clear any existing values
+            // Set the form values with the updated symptom data
+            form.setValue("id", updatedSymptom.id);
+            form.setValue("name", updatedSymptom.name);
+            form.setValue("imageUrl", updatedSymptom.imageUrl);
+            const remedyNames = updatedSymptom.remedies ? updatedSymptom.remedies.map((remedy: any) => remedy.name) : [];
+            const diseaseNames = updatedSymptom.diseases ? updatedSymptom.diseases.map((disease: any) => disease.name) : [];
+            const remediesString = remedyNames.join(", ");
+            const diseasesString = diseaseNames.join(", ");
+            form.setValue("remedies", remediesString);
+            form.setValue("diseases", diseasesString);
             router.refresh();
             onClose();
         } catch (error) {
@@ -87,6 +100,7 @@ export const EditSymptomModal = () => {
     const handleSymptomNameChange = (selectedName: string) => {
         const selectedSymptom = symptomData.find((symptom: any) => symptom.name === selectedName);
         if (selectedSymptom) {
+            form.setValue("id",selectedSymptom.id);
             form.setValue("imageUrl", selectedSymptom.imageUrl || "");
             const diseases = selectedSymptom.diseases || [];
             const remedies = selectedSymptom.remedies || [];

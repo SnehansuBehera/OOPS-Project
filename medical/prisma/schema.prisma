@@ -54,11 +54,21 @@ enum MemberRole {
   DOCTOR 
   PATIENT
 }
+enum MemberStatus {
+  PENDING
+  APPROVED
+}
 model Member{
   id String @id @default(uuid())
+  name String
+  ImpMessage String
   role MemberRole @default(PATIENT)
   profileId String
   profile Profile @relation( fields: [profileId],references: [id],onDelete: Cascade)
+  MemberImageUrl String @db.Text
+  doctorProofImageUrl String? @db.Text
+  doctorStatus MemberStatus @default(PENDING)
+  patientStatus MemberStatus @default(PENDING)
   directMessages DirectMessage[]
   conversationInitiated Conversation[] @relation("MemberOne")
   conversationRecieved Conversation[] @relation("MemberTwo")

@@ -6,7 +6,7 @@ import "@uploadthing/react/styles.css";
 interface FileUploadProp{
     onChange:(url?:string)=>void;
     value:string;
-    endpoint:"messageFile"|"symptomImage"
+    endpoint:"messageFile"|"symptomImage"|"memberImage"|"proofImage"
 }
 export const FileUpload=({onChange,value,endpoint}:FileUploadProp)=>{
     const fileType=value?.split(".").pop();

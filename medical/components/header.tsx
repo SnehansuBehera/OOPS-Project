@@ -12,10 +12,10 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
     return (
-        <div className={cn(" mx-auto bg-emerald-400 p-[1rem]", className)}>
-            <div className="w-full mt-2 flex items-center justify-between">
-                <MobileToggle/>
-            {children}
+        <div className={cn("rounded-2xl shadow-md shadow-gray-400 w-[92%] mt-4 mx-auto bg-transparent py-[.7rem] px-[1.2rem]", className)}>
+            <div className="w-full flex items-center justify-between">
+                <MobileToggle />
+                {children}
                 <div className="hidden md:flex gap-x-2 items-center ">
                     <button className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity-75 transition  ">
                         <HiHome className="text-black" size={20} />
@@ -26,9 +26,9 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                     <button className="rounded-full p-2 bg-white flex items-center justify-center hover:opacity-75 transition  ">
                         <FaUserDoctor className="text-black" size={20} />
                     </button>
-                    <UserButton afterSignOutUrl="/"/>
+                    <UserButton afterSignOutUrl="/" />
                 </div>
-                
+
             </div>
         </div>
     );

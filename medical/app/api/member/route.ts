@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 export async function POST(req:Request) {
     try{
-        const {name,MemberImageUrl,role,doctorProofImageUrl,ImpMessage}=await req.json();
+        const {name,MemberImageUrl,role,doctorProofImageUrl,ImpMessage,gender,age}=await req.json();
         const profile=await currentProfile();
         if(!profile){
             return new NextResponse("Unauthorized",{status:401});
@@ -14,6 +14,8 @@ export async function POST(req:Request) {
         const member=await db.member.create({
          data:{
             name,
+            gender,
+            age,
             ImpMessage,
             MemberImageUrl,
             role,

@@ -9,9 +9,11 @@ import { useForm } from "react-hook-form";
 import { FileUpload } from "@/components/file-upload";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
-import { MemberRole } from "@prisma/client";
+import { GenderRole, MemberRole } from "@prisma/client";
 const formSchema=z.object({
     name:z.string().min(1,{message:"Patient name required"}),
+    age: z.number().int().positive({ message: "Age must be a positive integer" }),
+    gender: z.nativeEnum(GenderRole),
     ImpMessage:z.string().min(1,{message:" Your Request Message  required"}),
     MemberImageUrl:z.string().min(1,{message:"Doctor image required"}),
     doctorProofImageUrl:z.string().min(1,{message:"Proof image required"}),
@@ -26,6 +28,8 @@ export const CreateDoctorModal=()=>{
             resolver:zodResolver(formSchema),
             defaultValues:{
                 name:"",
+                age:0,
+                gender: GenderRole.MALE,
                 ImpMessage:"",
                 MemberImageUrl:"",
                 doctorProofImageUrl:"",
@@ -129,6 +133,52 @@ const handleClose=()=>{
                                 )}>
                                 </FormField>
                         </div>
+                        <FormField
+                            control={form.control}
+                            name="age"
+                            render={({ field })=>(
+                                <FormItem>
+                                    <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                                        Age
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="number"
+                                            disabled={isLoading}
+                                            className="bg-zinc-300/50"
+                                            focusVisibleRing-0 
+                                            text-black 
+                                            focusVisibleRingOffset-0
+                                            placeholder="Enter your age"
+                                            {...field}
+                                            onChange={(e) => {
+                                                const value = parseInt(e.target.value);
+                                                field.onChange(value);
+                                            }}
+                                        />
+                                    </FormControl>
+                                    <FormMessage/>
+                                </FormItem>
+                            )}                        
+                        />
+                        <FormField
+                            control={form.control}
+                            name="gender"
+                            render={({ field })=>(
+                                <FormItem>
+                                    <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                                        Gender
+                                    </FormLabel>
+                                    <FormControl>
+                                        <select {...field} disabled={isLoading} className="bg-zinc-300/50">
+                                            <option value={GenderRole.MALE}>Male</option>
+                                            <option value={GenderRole.FEMALE}>Female</option>
+                                        </select>
+                                    </FormControl>
+                                    <FormMessage/>
+                                </FormItem>
+                            )}                        
+                        />
                         <FormField
                         control={form.control}
                         name="ImpMessage"

@@ -58,9 +58,16 @@ enum MemberStatus {
   PENDING
   APPROVED
 }
+enum GenderRole {
+  MALE
+  FEMALE
+}
 model Member{
   id String @id @default(uuid())
   name String
+  age Int
+  gender GenderRole @default(MALE)
+  question Question[]
   ImpMessage String
   role MemberRole @default(PATIENT)
   profileId String
@@ -100,4 +107,55 @@ model DirectMessage{
   updatedAt DateTime @updatedAt
   @@index([memberId])
   @@index([conversationId])
+}
+
+model Question{
+  id String  @id @default( uuid())
+  name String
+  memberId String
+  member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
+  subquestions SubQuestion[]
+  response String @default("NO")
+  looklistens LookListenFeel[]
+  @@index([memberId])
+}
+model SubQuestion{
+  id String @id @default(uuid())
+  name String
+  answer String?
+  questionId String
+  question Question @relation(fields: [questionId],references:[id],onDelete:Cascade)
+  @@index([questionId])
+}
+model LookListenFeel{
+  id String @id @default(uuid())
+  name String 
+  questionId String 
+  question Question @relation(fields: [questionId],references:[id],onDelete:Cascade)
+  signs Sign[]
+  @@index([questionId])
+}
+model Sign{
+  id String  @id @default(uuid())
+  name String 
+  classify Classify[]
+  looklistenId String 
+  looklisten LookListenFeel @relation(fields: [looklistenId],references:[id],onDelete:Cascade)
+  @@index([looklistenId])
+}
+model Classify{
+  id String @id @default(uuid())
+    treatments Treatment[]
+    signId String
+    sign Sign @relation(fields: [signId],references:[id],onDelete:Cascade)
+    @@index([signId])
+
+
+}
+model Treatment{
+  id String @id @default(uuid())
+  name String 
+  classifyId String
+  classify Classify @relation(fields: [classifyId],references:[id],onDelete:Cascade)
+  @@index([classifyId])
 }

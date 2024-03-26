@@ -79,6 +79,7 @@ model Member{
   directMessages DirectMessage[]
   conversationInitiated Conversation[] @relation("MemberOne")
   conversationRecieved Conversation[] @relation("MemberTwo")
+  totalResponses TotalResponse[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
@@ -115,6 +116,7 @@ model Question{
   subquestions SubQuestion[]
   totalResponse TotalResponse[]
   looklistens LookListenFeel[]
+  members Member[] 
 }
 model TotalResponse{
   id String  @id @default( uuid())

@@ -18,7 +18,7 @@ model Profile{
   name String
   imageUrl String @db.Text
   email String @db.Text
-  members Member[]
+  members Member[] 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -34,7 +34,7 @@ model Symptom{
 model Remedy{
   id String @id @default(uuid())
   name String
-  symptomId String
+  symptomId String @unique
   symptom Symptom @relation(fields: [symptomId],references:[id],onDelete:Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -43,14 +43,14 @@ model Remedy{
 model Disease{
   id String @id @default(uuid())
   name String
-  symptomId String
+  symptomId String @unique
   symptom Symptom @relation(fields: [symptomId],references:[id],onDelete:Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@index([symptomId])
 }
 enum MemberRole {
-  ADMIN
+  ADMIN 
   DOCTOR 
   PATIENT
 }
@@ -68,11 +68,11 @@ model Member{
   age Int
   gender GenderRole @default(MALE)
   question Question[]
-  ImpMessage String
+  ImpMessage String?
   role MemberRole @default(PATIENT)
   profileId String
   profile Profile @relation( fields: [profileId],references: [id],onDelete: Cascade)
-  MemberImageUrl String @db.Text
+  MemberImageUrl String? @db.Text
   doctorProofImageUrl String? @db.Text
   doctorStatus MemberStatus @default(PENDING)
   patientStatus MemberStatus @default(PENDING)
@@ -123,7 +123,7 @@ model SubQuestion{
   id String @id @default(uuid())
   name String
   answer String?
-  questionId String
+  questionId String @unique
   question Question @relation(fields: [questionId],references:[id],onDelete:Cascade)
   @@index([questionId])
 }

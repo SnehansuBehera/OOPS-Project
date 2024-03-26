@@ -6,6 +6,7 @@ import { DeleteSymptomModal } from "@/components/modals/delete-symptom";
 import { EditSymptomModal } from "@/components/modals/edit-symptom";
 import {CreateDoctorModal} from "@/components/modals/create-doctor";
 import { useEffect, useState } from "react";
+import { CreateQuestionModal } from "@/components/modals/create-question";
 export const ModalProvider=()=>{
     const [isMounted,setIsMounted]=useState(false);
     useEffect(()=>{
@@ -22,6 +23,7 @@ export const ModalProvider=()=>{
         <DeleteSymptomModal/>
         <CreatePatientModal/>
         <CreateDoctorModal/>
+        <CreateQuestionModal/>
         </>
     )
 }

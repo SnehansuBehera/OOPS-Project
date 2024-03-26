@@ -67,7 +67,7 @@ model Member{
   name String
   age Int
   gender GenderRole @default(MALE)
-  question Question[]
+  totalResponse TotalResponse[] 
   ImpMessage String
   role MemberRole @default(PATIENT)
   profileId String
@@ -111,13 +111,21 @@ model DirectMessage{
 
 model Question{
   id String  @id @default( uuid())
-  name String
+  name String  
+  subquestions SubQuestion[]
+  totalResponse TotalResponse[]
+  looklistens LookListenFeel[]
+}
+model TotalResponse{
+  id String  @id @default( uuid())
+  resp String 
+  questionId String
+  question Question @relation(fields: [questionId],references:[id],onDelete:Cascade)
   memberId String
   member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
-  subquestions SubQuestion[]
-  response String @default("NO")
-  looklistens LookListenFeel[]
   @@index([memberId])
+  @@index([questionId])
+
 }
 model SubQuestion{
   id String @id @default(uuid())
@@ -129,7 +137,8 @@ model SubQuestion{
 }
 model LookListenFeel{
   id String @id @default(uuid())
-  name String 
+  name String
+  answer String 
   questionId String 
   question Question @relation(fields: [questionId],references:[id],onDelete:Cascade)
   signs Sign[]

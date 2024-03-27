@@ -194,6 +194,6 @@ model Bacteria_Jaundice{
 
 model Malnutrition{
   id String @id @default(uuid())
-  Weight Int
+  Weight Int @default(0)
   DifficultyinFeeding Boolean?
 }

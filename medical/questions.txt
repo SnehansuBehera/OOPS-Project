@@ -62,5 +62,5 @@ look and feel~
     2-> [Weight or age]
 
 classify~
-    3-> [not able to feed , no attachment at all , severly underweight] => POSSIBLE SEVERE MALLNUTRITION OR BACTERIAL INFECTION IN STOMACH
+    3-> [not able to feed  , severly underweight] => POSSIBLE SEVERE MALLNUTRITION OR BACTERIAL INFECTION IN STOMACH
         

@@ -54,13 +54,18 @@ enum MemberRole {
   DOCTOR 
   PATIENT
 }
+enum Gender {
+  MALE 
+  FEMALE 
+  
+}
 enum MemberStatus {
   PENDING
   APPROVED
 }
 enum GenderRole {
-  MALE
-  FEMALE
+  MALE 
+  FEMALE 
 }
 model Member{
   id String @id @default(uuid())
@@ -166,6 +171,7 @@ model Classify{
 model Treatment{
   id String @id @default(uuid())
   clinicalTreatment ClinicalTreatment[]
+  homeTreatment HomeTreatment[]
   name String 
   classifyId String
   classify Classify @relation(fields: [classifyId],references:[id],onDelete:Cascade)
@@ -176,13 +182,13 @@ model ClinicalTreatment{
   id String @id @default(uuid())
   // suggestions Suggestion[]
   treatmentId String
-  treatment Treatment @relation(fields: [treatmentId],references: [if],onDelete: Cascade)
+  treatment Treatment @relation(fields: [treatmentId],references: [id],onDelete: Cascade)
   @@index([treatmentId])
 }
 
 model HomeTreatment{
   id String @id @default(uuid())
   treatmentId String
-  tratment Treatment @relation(fields: [treatmentId],references: [if],onDelete: Cascade)
+  treatment Treatment @relation(fields: [treatmentId],references: [id],onDelete: Cascade)
   @@index([treatmentId])
 }

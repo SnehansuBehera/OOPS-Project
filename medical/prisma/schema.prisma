@@ -201,9 +201,9 @@ model Diarrhoea{
   id String @id @default(uuid())
   howlong Boolean?
   LethargicorUnconsious Boolean?
-  RestlessIrritable Boolean
-  sunkenEyes Boolean
-  pinchSkinAbdomen Boolean
+  RestlessIrritable Boolean?
+  sunkenEyes Boolean?
+  pinchSkinAbdomen Boolean?
   memberId String
   member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
   @@index([memberId])

@@ -4,6 +4,8 @@ import React from 'react'
 import '../app/globals.css'
 
 const HomePage = () => {
+
+
     return (
         <div className='flex gap-2  flex-wrap md:px-6 md:justify-around my-[8vw]  md:my-[3vw]'>
 
@@ -23,7 +25,7 @@ const HomePage = () => {
 
 
             {/*Right part of the home page*/}
-            <div className='hidden sm:z-10 sm:container-snap sm:flex sm:overflow-x-scroll sm:gap-6 sm:px-4 sm:py-20 sm:w-[30rem] whitespace-wrap snap-x snap-mandatory'>
+            <div className='hidden sm:z-10 container-snap sm:flex sm:overflow-x-scroll sm:gap-6 sm:px-4 sm:py-20 sm:w-[30rem] whitespace-wrap snap-x snap-mandatory'>
                 <div className='flex flex-col gap-5 w-[24rem] snap-center snap-always'>
 
                     <Image className='rounded-2xl' src='/bpl.jpg' alt='bpl' width={500} height={500} />

@@ -192,3 +192,4 @@ model HomeTreatment{
   treatment Treatment @relation(fields: [treatmentId],references: [id],onDelete: Cascade)
   @@index([treatmentId])
 }
+

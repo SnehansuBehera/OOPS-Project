@@ -2,7 +2,7 @@ JAUNDICE and BACTERIAL INFECTION:
 
 
 ask~
-1-> [Has infant has convultions?]
+1-> [Has infant has convultions? , Are the palms and soles yellow?]
 
 
 look,listen,feel~
@@ -27,3 +27,14 @@ signs~
 
 
     3. [High Temperature] => MILD FEVER.. 
+
+
+
+
+DIARRHOEA:
+ask~
+    1-> [If stool is liquid.]
+
+
+look and feel ~
+    2-> [If the stool has blood ,  Lathergic or unconscious , Restless and irritable , look for sunken eyes , ]

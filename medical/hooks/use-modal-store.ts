@@ -1,9 +1,10 @@
 import { Disease, Remedy } from "@prisma/client";
-import { SymptomWithRemediesWithDisease } from "@/types";
+import { QuestionWithSubQuestionWithLookListenFeel, SymptomWithRemediesWithDisease } from "@/types";
 import {create }from"zustand"
 export type ModalType="createSymptom"|"editSymptom"|"deleteSymptom"|"createPatient"|"createDoctor"|"createQuestion"|"members"|"messageFile"|"deleteMessage";
 interface ModalData{
     symptom?:SymptomWithRemediesWithDisease;
+    questions:QuestionWithSubQuestionWithLookListenFeel;
     disease?:Disease;
     remedy?:Remedy;
     apiUrl?:string;

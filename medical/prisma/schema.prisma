@@ -34,7 +34,7 @@ model Symptom{
 model Remedy{
   id String @id @default(uuid())
   name String
-  symptomId String @unique
+  symptomId String 
   symptom Symptom @relation(fields: [symptomId],references:[id],onDelete:Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -43,7 +43,7 @@ model Remedy{
 model Disease{
   id String @id @default(uuid())
   name String
-  symptomId String @unique
+  symptomId String 
   symptom Symptom @relation(fields: [symptomId],references:[id],onDelete:Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -169,4 +169,20 @@ model Treatment{
   classifyId String
   classify Classify @relation(fields: [classifyId],references:[id],onDelete:Cascade)
   @@index([classifyId])
+}
+model Bacteria_Jaundice{
+  id String @id @default(uuid())
+  HasConvulsion String
+  breathinoneminute String
+  chestindrawing String
+  nasalflaring String
+  grunting String
+  bulgingfontanelle  String
+  pusdraining String
+  lookumbilicus String
+  skinpustules String
+  axillarytemperature String
+  lethargic_unconscious String
+  movementinfant String
+  Arethepalmsandsolesyellow String
 }

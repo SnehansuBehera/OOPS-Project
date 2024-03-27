@@ -12,18 +12,18 @@ export const ModalProvider=()=>{
     useEffect(()=>{
         setIsMounted(true);
 
-    },[]);
-    if(!isMounted){
+    }, []);
+    if (!isMounted) {
         return null;
     }
-    return(
+    return (
         <>
-        <CreateSymptomModal/>
-        <EditSymptomModal/>
-        <DeleteSymptomModal/>
-        <CreatePatientModal/>
-        <CreateDoctorModal/>
-        <CreateQuestionModal/>
+            <CreateSymptomModal />
+            <EditSymptomModal />
+            <DeleteSymptomModal />
+            <CreatePatientModal />
+            <CreateDoctorModal />
+            <CreateQuestionModal />
         </>
     )
 }

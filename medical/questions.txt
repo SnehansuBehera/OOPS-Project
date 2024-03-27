@@ -1,0 +1,66 @@
+JAUNDICE and BACTERIAL INFECTION:
+
+
+ask~
+1-> [Has infant has convultions? , Are the palms and soles yellow?]
+
+
+look,listen,feel~
+2-> [Count of breaths in one minute , Severe chest indrawing. , Nasal Flaring , Grunting , Bulging Fontanelle ,
+     Pus Draining from ear , Umbilicus are RED or Pus Draining , Are there 10 or more skin pustucles or a big boil,
+     High Temperature , Is the infant lathargic or unconscious , if the movement less than normal , 
+     Are the palms or soles yellow ? ]
+
+classify~
+3-> [ ALL YOUNG INFANTS(1) , IF INFANT HAS JAUNDICE(2) , THE TEMP BETWEEN 35.5 AND 36.4(3) ]
+
+signs~
+4-> 1.[Convlutions , Fast Breathing , Severe chest inDrawing , Nasal Flaring  , Grunting , Bulging fontanelle , 
+     If high energy , Lethargic , Less than normal movement] => POSSIBLE SEROIOUS BACTERIAL INFECTION.
+
+    [Umbilicus red  , Draining pus , pus Discharge from ear , <10 skin pustucles ] => LOCAL BACTERIAL INFECTION.
+
+
+    2.[Palms and soles yellow , Age > 14 days ] => SEVERE JAUNDICE.
+
+    [Palms and soles not yellow ] => JAUNDICE.
+
+
+    3. [High Temperature] => MILD FEVER.. 
+
+
+
+
+DIARRHOEA:
+ask~
+    1-> [If stool is liquid.]
+
+
+look and feel ~
+    2-> [If the stool has blood ,  Lathergic or unconscious , Restless and irritable , look for sunken eyes ]
+
+classify~
+    3-> [for Dehydration[1] , Symptoms are 14 days or more[2] , if Blood in stool[3]]
+
+signs~
+    1. [lethargic and unconscious , sunken eyes , Skin pinch goes back very slow] => Severe DIARRHOEA
+        [Restless and irritation , sunken eyes] => SOME DEHYDRATION.
+        []
+
+
+
+    2.  [DIARRHOEA lasting 14 days] => SEVERE PERSISTENT DIARRHOEA
+    3.  [Blood in stool] => SEVERE DYSENTERY.
+
+
+
+FEEDING PROBLEMS AND MALNUTRITION : 
+ask~
+    1-> [Any difficulty in feeding ? ]
+
+look and feel~
+    2-> [Weight or age]
+
+classify~
+    3-> [not able to feed , no attachment at all , severly underweight] => POSSIBLE SEVERE MALLNUTRITION OR BACTERIAL INFECTION IN STOMACH
+        

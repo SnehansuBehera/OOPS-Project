@@ -87,7 +87,9 @@ model Member{
   totalResponses TotalResponse[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
+  diarrhoea Diarrhoea[]
+  jaundice Bacteria_Jaundice[]
+  malnutrition Malnutrition[]
 }
 
 model Conversation{
@@ -190,10 +192,28 @@ model Bacteria_Jaundice{
   lethargic_unconscious Boolean?
   movementinfant Boolean?
   Arethepalmsandsolesyellow Boolean?
+  memberId String
+  member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
+  @@index([memberId])
+}
+
+model Diarrhoea{
+  id String @id @default(uuid())
+  howlong Boolean?
+  LethargicorUnconsious Boolean?
+  RestlessIrritable Boolean?
+  sunkenEyes Boolean?
+  pinchSkinAbdomen Boolean?
+  memberId String
+  member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
+  @@index([memberId])
 }
 
 model Malnutrition{
   id String @id @default(uuid())
   Weight Int @default(0)
   DifficultyinFeeding Boolean?
+  memberId String
+  member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
+  @@index([memberId])
 }

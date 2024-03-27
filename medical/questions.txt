@@ -37,4 +37,30 @@ ask~
 
 
 look and feel ~
-    2-> [If the stool has blood ,  Lathergic or unconscious , Restless and irritable , look for sunken eyes , ]
+    2-> [If the stool has blood ,  Lathergic or unconscious , Restless and irritable , look for sunken eyes ]
+
+classify~
+    3-> [for Dehydration[1] , Symptoms are 14 days or more[2] , if Blood in stool[3]]
+
+signs~
+    1. [lethargic and unconscious , sunken eyes , Skin pinch goes back very slow] => Severe DIARRHOEA
+        [Restless and irritation , sunken eyes] => SOME DEHYDRATION.
+        []
+
+
+
+    2.  [DIARRHOEA lasting 14 days] => SEVERE PERSISTENT DIARRHOEA
+    3.  [Blood in stool] => SEVERE DYSENTERY.
+
+
+
+FEEDING PROBLEMS AND MALNUTRITION : 
+ask~
+    1-> [Any difficulty in feeding ? ]
+
+look and feel~
+    2-> [Weight or age]
+
+classify~
+    3-> [not able to feed , no attachment at all , severly underweight] => POSSIBLE SEVERE MALLNUTRITION OR BACTERIAL INFECTION IN STOMACH
+        

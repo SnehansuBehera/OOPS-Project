@@ -195,7 +195,7 @@ model Bacteria_Jaundice{
   movementinfant Boolean?
   Arethepalmsandsolesyellow Boolean?
 }
-model Diarrhoea{
+model Malnutrition{
   id String @id @default(uuid())
   Weight Int @default(0)
   DifficultyinFeeding Boolean?

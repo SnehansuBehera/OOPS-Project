@@ -165,8 +165,23 @@ model Classify{
 }
 model Treatment{
   id String @id @default(uuid())
-  name String 
+  name String
+  clinicaltreatment ClinicalTreatment[]
+  hometreatment HomeTreatment[]
   classifyId String
   classify Classify @relation(fields: [classifyId],references:[id],onDelete:Cascade)
   @@index([classifyId])
+}
+model ClinicalTreatment{
+  id String @id @default(uuid())
+  treatmentId String
+  treatment Treatment @relation(fields: [treatmentId],references: [id],onDelete: Cascade)
+  @@index([treatmentId])
+}
+
+model HomeTreatment{
+  id String @id @default(uuid())
+  treatmentId String
+  tratment Treatment @relation(fields: [treatmentId],references: [id],onDelete: Cascade)
+  @@index([treatmentId])
 }

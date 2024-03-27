@@ -170,10 +170,24 @@ model Classify{
 }
 model Treatment{
   id String @id @default(uuid())
-  clinicalTreatment ClinicalTreatment[]
-  homeTreatment HomeTreatment[]
   name String 
   classifyId String
   classify Classify @relation(fields: [classifyId],references:[id],onDelete:Cascade)
   @@index([classifyId])
+}
+model Bacteria_Jaundice{
+  id String @id @default(uuid())
+  HasConvulsion String
+  breathinoneminute String
+  chestindrawing String
+  nasalflaring String
+  grunting String
+  bulgingfontanelle  String
+  pusdraining String
+  lookumbilicus String
+  skinpustules String
+  axillarytemperature String
+  lethargic_unconscious String
+  movementinfant String
+  Arethepalmsandsolesyellow String
 }

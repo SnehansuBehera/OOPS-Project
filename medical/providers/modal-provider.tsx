@@ -1,29 +1,29 @@
 "use client";
 
-import { CreatePatientModal } from "@/components/modals/create-patient";
-import { CreateSymptomModal } from "@/components/modals/create-symptom";
-import { DeleteSymptomModal } from "@/components/modals/delete-symptom";
-import { EditSymptomModal } from "@/components/modals/edit-symptom";
-import {CreateDoctorModal} from "@/components/modals/create-doctor";
+import { CreatePatientModal } from "@/components/models/create-patient";
+import { CreateSymptomModal } from "@/components/models/create-symptom";
+import { DeleteSymptomModal } from "@/components/models/delete-symptom";
+import { EditSymptomModal } from "@/components/models/edit-symptom";
+import { CreateDoctorModal } from "@/components/models/create-doctor";
 import { useEffect, useState } from "react";
-import { CreateQuestionModal } from "@/components/modals/create-question";
-export const ModalProvider=()=>{
-    const [isMounted,setIsMounted]=useState(false);
-    useEffect(()=>{
+import { CreateQuestionModal } from "@/components/models/create-question";
+export const ModalProvider = () => {
+    const [isMounted, setIsMounted] = useState(false);
+    useEffect(() => {
         setIsMounted(true);
 
-    },[]);
-    if(!isMounted){
+    }, []);
+    if (!isMounted) {
         return null;
     }
-    return(
+    return (
         <>
-        <CreateSymptomModal/>
-        <EditSymptomModal/>
-        <DeleteSymptomModal/>
-        <CreatePatientModal/>
-        <CreateDoctorModal/>
-        <CreateQuestionModal/>
+            <CreateSymptomModal />
+            <EditSymptomModal />
+            <DeleteSymptomModal />
+            <CreatePatientModal />
+            <CreateDoctorModal />
+            <CreateQuestionModal />
         </>
     )
 }

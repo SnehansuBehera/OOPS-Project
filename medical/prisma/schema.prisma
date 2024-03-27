@@ -73,8 +73,7 @@ model Member{
   age Int
   gender GenderRole @default(MALE)
   question Question[]
-  diarrhoea Diarrhoea[]
-  bacteria Bacteria_Jaundice[]
+  
   ImpMessage String
   role MemberRole @default(PATIENT)
   profileId String
@@ -90,7 +89,7 @@ model Member{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   diarrhoea Diarrhoea[]
-  jaundice Bacteria_Jaundice[]
+  bacteria Bacteria_Jaundice[]
   malnutrition Malnutrition[]
 }
 
@@ -194,9 +193,26 @@ model Bacteria_Jaundice{
   lethargic_unconscious Boolean?
   movementinfant Boolean?
   Arethepalmsandsolesyellow Boolean?
+  memberId String
+  member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
+  @@index([memberId])
+}
+model Diarrhoea{
+  id String @id @default(uuid())
+  howlong Boolean?
+  LethargicorUnconsious Boolean?
+  RestlessIrritable Boolean
+  sunkenEyes Boolean
+  pinchSkinAbdomen Boolean
+  memberId String
+  member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
+  @@index([memberId])
 }
 model Malnutrition{
   id String @id @default(uuid())
   Weight Int @default(0)
   DifficultyinFeeding Boolean?
+  memberId String
+  member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
+  @@index([memberId])
 }

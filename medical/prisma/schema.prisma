@@ -180,4 +180,9 @@ model ClinicalTreatment{
   @@index([treatmentId])
 }
 
-
+model HomeTreatment{
+  id String @id @default(uuid())
+  treatmentId String
+  tratment Treatment @relation(fields: [treatmentId],references: [if],onDelete: Cascade)
+  @@index([treatmentId])
+}

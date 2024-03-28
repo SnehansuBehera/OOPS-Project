@@ -34,7 +34,7 @@ model Symptom{
 model Remedy{
   id String @id @default(uuid())
   name String
-  symptomId String @unique
+  symptomId String 
   symptom Symptom @relation(fields: [symptomId],references:[id],onDelete:Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -43,7 +43,7 @@ model Remedy{
 model Disease{
   id String @id @default(uuid())
   name String
-  symptomId String @unique
+  symptomId String 
   symptom Symptom @relation(fields: [symptomId],references:[id],onDelete:Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -73,6 +73,9 @@ model Member{
   age Int
   gender GenderRole @default(MALE)
   question Question[]
+  diarrhoea Diarrhoea[]
+  bacteria Bacteria_Jaundice[]
+  classify Classify[]
   ImpMessage String
   role MemberRole @default(PATIENT)
   profileId String
@@ -161,35 +164,49 @@ model Sign{
 }
 model Classify{
   id String @id @default(uuid())
-    treatments Treatment[]
-    signId String
-    sign Sign @relation(fields: [signId],references:[id],onDelete:Cascade)
-    @@index([signId])
-
-
+  name String 
+  treatments Treatment[]
+  signId String
+  sign Sign @relation(fields: [signId],references:[id],onDelete:Cascade)
+  memberId String
+  member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
+  @@index([signId])
+  @@index([memberId])
 }
 model Treatment{
   id String @id @default(uuid())
-  clinicalTreatment ClinicalTreatment[]
-  homeTreatment HomeTreatment[]
   name String 
   classifyId String
   classify Classify @relation(fields: [classifyId],references:[id],onDelete:Cascade)
   @@index([classifyId])
 }
-
-model ClinicalTreatment{
+model Bacteria_Jaundice{
   id String @id @default(uuid())
-  // suggestions Suggestion[]
-  treatmentId String
-  treatment Treatment @relation(fields: [treatmentId],references: [id],onDelete: Cascade)
-  @@index([treatmentId])
+  HasConvulsion Boolean?
+  breathinoneminute Boolean?
+  chestindrawing Boolean?
+  nasalflaring Boolean?
+  grunting Boolean?
+  bulgingfontanelle  Boolean?
+  pusdraining Boolean?
+  lookumbilicus Boolean?
+  skinpustules Boolean?
+  axillarytemperature Boolean?
+  lethargic_unconscious Boolean?
+  movementinfant Boolean?
+  Arethepalmsandsolesyellow Boolean?
+   memberId String
+  member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
+  @@index([memberId])
 }
-
-model HomeTreatment{
+model Diarrhoea{
   id String @id @default(uuid())
-  treatmentId String
-  treatment Treatment @relation(fields: [treatmentId],references: [id],onDelete: Cascade)
-  @@index([treatmentId])
+  howlong Boolean?
+  LethargicorUnconsious Boolean?
+  RestlessIrritable Boolean
+  sunkenEyes Boolean
+  pinchSkinAbdomen Boolean
+   memberId String
+  member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
+  @@index([memberId])
 }
-

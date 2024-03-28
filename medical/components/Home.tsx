@@ -17,7 +17,7 @@ const HomePage = () => {
                 <p className='text-[.7rem] md:text-[1rem] md:leading-6 flex justify-start w-30 md:w-[30rem] text-gray-500'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi magni cumque fugiat maxime eligendi, laudantium voluptatum, enim, ipsum libero voluptate ipsam numquam?</p>
                 <div className='flex items-center justify-start gap-4 md:gap-8'>
                     <Link href={''}><button className=' text-[.7rem] md:text-[1rem] px-[.8rem] py-3 rounded-lg text-white font-bold bg-emerald-400 shadow-md shadow-gray-400'>Book appointment</button></Link>
-                    <Link href={''}><button className='text-[.7rem] md:text-[1rem] px-[.8rem] py-3 rounded-lg text-cyan-950 font-bold bg-transparent shadow-md shadow-gray-400'>Medications</button></Link>
+                    <Link href='/bacteria'><button className='text-[.7rem] md:text-[1rem] px-[.8rem] py-3 rounded-lg text-cyan-950 font-bold bg-transparent shadow-md shadow-gray-400'>Medications</button></Link>
                 </div>
 
             </div>

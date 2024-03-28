@@ -90,7 +90,9 @@ model Member{
   totalResponses TotalResponse[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
+  diarrhoea Diarrhoea[]
+  bacteria Bacteria_Jaundice[]
+  malnutrition Malnutrition[]
 }
 
 model Conversation{
@@ -182,19 +184,19 @@ model Treatment{
 }
 model Bacteria_Jaundice{
   id String @id @default(uuid())
-  HasConvulsion Boolean?
-  breathinoneminute Boolean?
-  chestindrawing Boolean?
-  nasalflaring Boolean?
-  grunting Boolean?
-  bulgingfontanelle  Boolean?
-  pusdraining Boolean?
-  lookumbilicus Boolean?
-  skinpustules Boolean?
-  axillarytemperature Boolean?
-  lethargic_unconscious Boolean?
-  movementinfant Boolean?
-  Arethepalmsandsolesyellow Boolean?
+  HasConvulsion String
+  breathinoneminute String
+  chestindrawing String
+  nasalflaring String
+  grunting String
+  bulgingfontanelle  String
+  pusdraining String
+  lookumbilicus String
+  skinpustules String
+  axillarytemperature String
+  lethargic_unconscious String
+  movementinfant String
+  Arethepalmsandsolesyellow String
    memberId String
   member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
   @@index([memberId])
@@ -203,10 +205,18 @@ model Diarrhoea{
   id String @id @default(uuid())
   howlong Boolean?
   LethargicorUnconsious Boolean?
-  RestlessIrritable Boolean
-  sunkenEyes Boolean
-  pinchSkinAbdomen Boolean
-   memberId String
+  RestlessIrritable Boolean?
+  sunkenEyes Boolean?
+  pinchSkinAbdomen Boolean?
+  memberId String
+  member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
+  @@index([memberId])
+}
+model Malnutrition{
+  id String @id @default(uuid())
+  Weight Int @default(0)
+  DifficultyinFeeding Boolean?
+  memberId String
   member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
   @@index([memberId])
 }

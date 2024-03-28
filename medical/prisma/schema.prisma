@@ -75,6 +75,7 @@ model Member{
   question Question[]
   diarrhoea Diarrhoea[]
   bacteria Bacteria_Jaundice[]
+  classify Classify[]
   ImpMessage String
   role MemberRole @default(PATIENT)
   profileId String
@@ -163,12 +164,14 @@ model Sign{
 }
 model Classify{
   id String @id @default(uuid())
-    treatments Treatment[]
-    signId String
-    sign Sign @relation(fields: [signId],references:[id],onDelete:Cascade)
-    @@index([signId])
-
-
+  name String 
+  treatments Treatment[]
+  signId String
+  sign Sign @relation(fields: [signId],references:[id],onDelete:Cascade)
+  memberId String
+  member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
+  @@index([signId])
+  @@index([memberId])
 }
 model Treatment{
   id String @id @default(uuid())
@@ -179,19 +182,19 @@ model Treatment{
 }
 model Bacteria_Jaundice{
   id String @id @default(uuid())
-  HasConvulsion String
-  breathinoneminute String
-  chestindrawing String
-  nasalflaring String
-  grunting String
-  bulgingfontanelle  String
-  pusdraining String
-  lookumbilicus String
-  skinpustules String
-  axillarytemperature String
-  lethargic_unconscious String
-  movementinfant String
-  Arethepalmsandsolesyellow String
+  HasConvulsion Boolean?
+  breathinoneminute Boolean?
+  chestindrawing Boolean?
+  nasalflaring Boolean?
+  grunting Boolean?
+  bulgingfontanelle  Boolean?
+  pusdraining Boolean?
+  lookumbilicus Boolean?
+  skinpustules Boolean?
+  axillarytemperature Boolean?
+  lethargic_unconscious Boolean?
+  movementinfant Boolean?
+  Arethepalmsandsolesyellow Boolean?
    memberId String
   member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
   @@index([memberId])

@@ -6,27 +6,29 @@ import { z } from 'zod';
 import { redirect, useRouter } from 'next/navigation';
 import { db } from '@/lib/db';
 import { currentMember } from '@/lib/current-member';
+import Link from 'next/link';
 
 const CreateBacteria = () => {
     const [isYes, setIsYes] = useState(false);
     const [isNo, setIsNo] = useState(false);
     const [formValues, setFormValues] = useState({
-        HasConvulsion: false,
-        breathinoneminute: false,
-        chestindrawing: false,
-        nasalflaring: false,
-        grunting: false,
-        bulgingfontanelle: false,
-        pusdraining: false,
-        lookumbilicus: false,
-        skinpustules: false,
-        axillarytemperature: false,
-        lethargic_unconscious: false,
-        movementinfant: false,
-        Arethepalmsandsolesyellow: false,
+        Convulsion: false,
+        FastBreathing: false,
+        SevereChestIndrawing: false,
+        NasalFlaring: false,
+        TenOrMorePustules: false,
+        LethargicOrUnconcious: false,
+        LessThanNormalMovements: false,
+        UmbilicusRedOrDraining: false,
+        PusDischargeFromEar: false,
+        PalmsAndSolesYellow: false,
+        AgeLessThan24HrsOrMore: false,
+        Age14DaysOrMore: false,
+        PalmsAndSolesNotYellow: false,
+        TemperatureBetween35and36Degree: false,
     });
-  
-    
+
+
 
     const handleYesClick = () => {
         setIsYes(true);
@@ -43,19 +45,20 @@ const CreateBacteria = () => {
     };
 
     const formSchema = z.object({
-        HasConvulsion: z.boolean(),
-        breathinoneminute: z.boolean(),
-        chestindrawing: z.boolean(),
-        nasalflaring: z.boolean(),
-        grunting: z.boolean(),
-        bulgingfontanelle: z.boolean(),
-        pusdraining: z.boolean(),
-        lookumbilicus: z.boolean(),
-        skinpustules: z.boolean(),
-        axillarytemperature: z.boolean(),
-        lethargic_unconscious: z.boolean(),
-        movementinfant: z.boolean(),
-        Arethepalmsandsolesyellow: z.boolean(),
+        Convulsion: z.boolean(),
+        FastBreathing: z.boolean(),
+        SevereChestIndrawing: z.boolean(),
+        NasalFlaring: z.boolean(),
+        TenOrMorePustules: z.boolean(),
+        LethargicOrUnconcious: z.boolean(),
+        LessThanNormalMovements: z.boolean(),
+        UmbilicusRedOrDraining: z.boolean(),
+        PusDischargeFromEar: z.boolean(),
+        PalmsAndSolesYellow: z.boolean(),
+        AgeLessThan24HrsOrMore: z.boolean(),
+        Age14DaysOrMore: z.boolean(),
+        PalmsAndSolesNotYellow: z.boolean(),
+        TemperatureBetween35and36Degree: z.boolean(),
     });
 
     const handleSubmit = async () => {
@@ -63,22 +66,22 @@ const CreateBacteria = () => {
             formSchema.parse(formValues);
             await axios.post('/api/bacteria', formValues);
             setFormValues({ // Reset form after submission
-                HasConvulsion: false,
-                breathinoneminute: false,
-                chestindrawing: false,
-                nasalflaring: false,
-                grunting: false,
-                bulgingfontanelle: false,
-                pusdraining: false,
-                lookumbilicus: false,
-                skinpustules: false,
-                axillarytemperature: false,
-                lethargic_unconscious: false,
-                movementinfant: false,
-                Arethepalmsandsolesyellow: false,
+                Convulsion: false,
+                FastBreathing: false,
+                SevereChestIndrawing: false,
+                NasalFlaring: false,
+                TenOrMorePustules: false,
+                LethargicOrUnconcious: false,
+                LessThanNormalMovements: false,
+                UmbilicusRedOrDraining: false,
+                PusDischargeFromEar: false,
+                PalmsAndSolesYellow: false,
+                AgeLessThan24HrsOrMore: false,
+                Age14DaysOrMore: false,
+                PalmsAndSolesNotYellow: false,
+                TemperatureBetween35and36Degree: false,
             });
-             redirect ("/bacteria/classify");
-            
+
         } catch (error) {
             console.error('Form validation failed:', error);
         }
@@ -118,7 +121,7 @@ const CreateBacteria = () => {
                             />
                         </div>
                     ))}
-                    <button onClick={handleSubmit}>Submit</button>
+                    <Link className='bg-green-500 py-2 rounded-md font-bold text-slate-100 text-center' href='/bacteria/results'><button onClick={handleSubmit}>Submit</button></Link>
                 </div>
             )}
         </div>

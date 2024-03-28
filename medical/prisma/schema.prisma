@@ -195,7 +195,7 @@ model Bacteria_Jaundice{
   lethargic_unconscious Boolean?
   movementinfant Boolean?
   Arethepalmsandsolesyellow Boolean?
-   memberId String
+  memberId String
   member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
   @@index([memberId])
 }

@@ -26,3 +26,24 @@ export async function POST(req:Request) {
     }
     
 }
+export async function GET(req: Request) {
+    try {
+        const member = await currentMember();
+        if (!member) {
+            return new NextResponse("Unauthorized", { status: 401 });
+        }
+        // Fetch all questions
+        const questions = await db.question.findMany({
+            include: {
+                subquestions: true,
+                looklistens: true,
+            },
+        });
+
+
+        return NextResponse.json(questions);
+    } catch (error) {
+        console.error("[QUESTION_GET]", error);
+        return new NextResponse("Internal Error", { status: 500 });
+    }
+}

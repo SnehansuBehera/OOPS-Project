@@ -87,24 +87,14 @@ const CreateBacteria = () => {
     return (
         <div className='px-4'>
             <h1 className='w-[20rem] px-6 text-[.7rem] md:text-[1rem] py-4 text-white rounded-lg  font-bold bg-black mb-3'>
-                Q: Does the baby have diarrhoea
+                Q: Does the baby have jaundice
             </h1>
             <div className='flex gap-4'>
                 <button className={`px-6 py-3 rounded-lg text-white font-bold ${isYes ? 'bg-emerald-400' : 'bg-emerald-500'}`} onClick={handleYesClick}>Yes</button>
                 <button className={`px-6 py-3 rounded-lg text-white font-bold ${isNo ? 'bg-red-400' : 'bg-red-500'}`} onClick={handleNoClick}>No</button>
             </div>
 
-            {isNo && (
-                <div className='px-1 mt-4'>
-                    <h1 className='w-[20rem] px-6 text-[.7rem] md:text-[1rem] py-4 pt-3 text-black rounded-lg  font-bold bg-transparent shadow-sm shadow-gray-400 mb-3'>
-                        Q: If stool is liquid
-                    </h1>
-                    <div className='flex gap-4'>
-                        <button className='px-6 py-3 rounded-lg text-white font-bold bg-emerald-400'>Yes</button>
-                        <button className='px-6 py-3 rounded-lg text-white font-bold bg-red-400'>No</button>
-                    </div>
-                </div>
-            )}
+            
 
             {isYes && (
                 <div className='px-1 mt-4 flex flex-col gap-2'>

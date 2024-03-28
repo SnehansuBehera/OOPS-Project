@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 export async function POST(req:Request) {
     try{
-        const {HasConvulsion,breathinoneminute,chestindrawing,grunting,nasalflaring,bulgingfontanelle,pusdraining,lookumbilicus,skinpustules,axillarytemperature,lethargic_unconscious,movementinfant,Arethepalmsandsolesyellow}=await req.json();
+        const {Convulsion,FastBreathing,SevereChestIndrawing,NasalFlaring,TenOrMorePustules,LethargicOrUnconcious,LessThanNormalMovements,UmbilicusRedOrDraining,PusDischargeFromEar,PalmsAndSolesYellow,AgeLessThan24HrsOrMore,Age14DaysOrMore,PalmsAndSolesNotYellow,TemperatureBetween35and36Degree}=await req.json();
         const member=await currentMember();
         if(!member){
             return new NextResponse("Unauthorized",{status:401});
@@ -11,23 +11,47 @@ export async function POST(req:Request) {
     
         const bacteria=await db.bacteria_Jaundice.create({
          data:{
-            HasConvulsion,
-            breathinoneminute,            
-            chestindrawing,
-            nasalflaring,
-            bulgingfontanelle,
-            pusdraining,
-            lookumbilicus,
-            grunting,
-            skinpustules,
-            axillarytemperature,
-            lethargic_unconscious,
-            movementinfant,
-            Arethepalmsandsolesyellow,
+            Convulsion,
+            FastBreathing,            
+            SevereChestIndrawing,
+            NasalFlaring,
+            TenOrMorePustules,
+            LethargicOrUnconcious,
+            LessThanNormalMovements,
+            UmbilicusRedOrDraining,
+            PusDischargeFromEar,
+            PalmsAndSolesYellow,
+            AgeLessThan24HrsOrMore,
+            Age14DaysOrMore,
+            PalmsAndSolesNotYellow,
+            TemperatureBetween35and36Degree,
             memberId:member.id
 
          }
         });
+        if (Convulsion || FastBreathing) {
+            
+            const classify=await db.classify.create({
+                data: {
+                    name: "Possible Serious Bacterial Infection",
+                    memberId: member.id,
+                    bacteriaId: bacteria.id,
+                            
+                },
+            });
+            const treatmentNames = ["Treatment 1", "Treatment 2", "Treatment 3"]; // Example array of treatment names
+
+            const treatments = await Promise.all(treatmentNames.map(async (name) => {
+                return await db.treatment.create({
+                    data: {
+                        name,
+                        classifyId: classify.id
+                    }
+                });
+            }));
+        }
+        
+
         return NextResponse.json(bacteria);
 
     }

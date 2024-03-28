@@ -157,7 +157,6 @@ model LookListenFeel{
 model Sign{
   id String  @id @default(uuid())
   name String 
-  classify Classify[]
   looklistenId String 
   looklisten LookListenFeel @relation(fields: [looklistenId],references:[id],onDelete:Cascade)
   @@index([looklistenId])
@@ -166,12 +165,12 @@ model Classify{
   id String @id @default(uuid())
   name String 
   treatments Treatment[]
-  signId String
-  sign Sign @relation(fields: [signId],references:[id],onDelete:Cascade)
   memberId String
   member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
-  @@index([signId])
+  bacteriaId String
+  bacteria Bacteria_Jaundice @relation(fields: [bacteriaId],references: [id],onDelete: Cascade)
   @@index([memberId])
+  @@index([bacteriaId])
 }
 model Treatment{
   id String @id @default(uuid())
@@ -182,19 +181,21 @@ model Treatment{
 }
 model Bacteria_Jaundice{
   id String @id @default(uuid())
-  HasConvulsion Boolean?
-  breathinoneminute Boolean?
-  chestindrawing Boolean?
-  nasalflaring Boolean?
-  grunting Boolean?
-  bulgingfontanelle  Boolean?
-  pusdraining Boolean?
-  lookumbilicus Boolean?
-  skinpustules Boolean?
-  axillarytemperature Boolean?
-  lethargic_unconscious Boolean?
-  movementinfant Boolean?
-  Arethepalmsandsolesyellow Boolean?
+  Convulsion Boolean?
+  FastBreathing Boolean?
+  SevereChestIndrawing Boolean?
+  NasalFlaring Boolean?
+  TenOrMorePustules Boolean?
+  LethargicOrUnconcious  Boolean?
+  LessThanNormalMovements Boolean?
+  UmbilicusRedOrDraining Boolean?
+  PusDischargeFromEar Boolean?
+  PalmsAndSolesYellow Boolean?
+  AgeLessThan24HrsOrMore Boolean?
+  Age14DaysOrMore Boolean?
+  PalmsAndSolesNotYellow Boolean?
+  TemperatureBetween35and36Degree Boolean?
+  classify Classify[]
    memberId String
   member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
   @@index([memberId])

@@ -41,7 +41,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
     ], [pathname]);
     return (
         <div className="flex h-full">
-            <div className="hidden md:flex flex-col gap-y-4 h-full w-[150px] p-2">
+            <div className="hidden md:flex flex-col gap-y-4 h-full w-[150px] p-2 mt-4">
                 <Box>
                     <div className="flex flex-col gap-y-4 px-5 py-4">
                         {routes.map((item) => (

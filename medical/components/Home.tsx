@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import '../app/globals.css'
+import QuestionPage from './QuestionPage'
 
 const HomePage = () => {
 
@@ -18,6 +19,7 @@ const HomePage = () => {
                 <div className='flex items-center justify-start gap-4 md:gap-8'>
                     <Link href={''}><button className=' text-[.7rem] md:text-[1rem] px-[.8rem] py-3 rounded-lg text-white font-bold bg-emerald-400 shadow-md shadow-gray-400'>Book appointment</button></Link>
                     <Link href='/bacteria'><button className='text-[.7rem] md:text-[1rem] px-[.8rem] py-3 rounded-lg text-cyan-950 font-bold bg-transparent shadow-md shadow-gray-400'>Medications</button></Link>
+
                 </div>
 
             </div>

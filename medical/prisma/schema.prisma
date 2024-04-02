@@ -12,13 +12,22 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+enum ProfileRole {
+  ADMIN 
+  PENDING 
+  REQUEST
+  APPROVED
+}
 model Profile{
   id String @id @default(uuid())
   userId String @unique
   name String
   imageUrl String @db.Text
+  proofImageUrl String? @db.Text
+  role ProfileRole @default(PENDING)
   email String @db.Text
   members Member[] 
+  patients Patient[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -210,4 +219,45 @@ model Diarrhoea{
    memberId String
   member Member @relation(fields: [memberId],references: [id],onDelete: Cascade)
   @@index([memberId])
+}
+model Patient{
+  id String @id @default(uuid())
+  name String 
+  age Int
+  sex String
+  profileId String
+  profile Profile @relation(fields: [profileId],references: [id],onDelete: Cascade)
+  records Record[]
+  dieas Diea[]
+}
+model Record{
+  id String @id @default(uuid())
+  patientId String
+  patient Patient @relation(fields: [patientId],references: [id],onDelete: Cascade)
+  result String 
+}
+model Diea{
+  id String @id @default(uuid())
+  name String 
+  questions1 Question1[]
+  questions2 Question2[]
+  patientId String
+  patient Patient @relation(fields:[patientId],references: [id],onDelete:Cascade)
+  @@index([patientId])
+}
+model Question1{
+  id String @id @default(uuid())
+  name String
+  count Int @default(0)
+  dieaId String
+  diea Diea @relation(fields:[dieaId],references: [id],onDelete: Cascade)
+  @@index([dieaId])
+}
+model Question2{
+  id String  @id @default(uuid())
+  name String 
+  count Int @default(0)
+    dieaId String
+  diea Diea @relation(fields:[dieaId],references: [id],onDelete: Cascade)
+  @@index([dieaId]) 
 }

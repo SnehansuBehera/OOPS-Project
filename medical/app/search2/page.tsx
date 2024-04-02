@@ -42,7 +42,11 @@ const TopDiseasesFinder: React.FC = () => {
 
   const handleSymptomChange = (id: number, value: string) => {
     const updatedSymptoms = [...symptoms];
-    updatedSymptoms[id] = { id, value };
+    if (value === '') {
+      updatedSymptoms.splice(id, 1);
+    } else {
+      updatedSymptoms[id] = { id, value };
+    }
     setSymptoms(updatedSymptoms);
   };
 
@@ -115,6 +119,15 @@ const TopDiseasesFinder: React.FC = () => {
         <br />
         <button type="submit">Submit</button>
       </form>
+
+      <div>
+        <h2>Symptoms:</h2>
+        <ul>
+          {symptoms.map((symptom, index) => (
+            <li key={index}>{symptom.value}</li>
+          ))}
+        </ul>
+      </div>
 
       <div>
         {topDiseases.map((disease, index) => (

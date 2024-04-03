@@ -83,9 +83,9 @@ const TopDiseasesFinder: React.FC = () => {
 
   return (
     <div>
-      <h1>Find Top Diseases</h1>
+      <h1 className='w-[20rem] px-6 text-[.7rem] md:text-[1rem] py-4 text-white rounded-lg  font-bold bg-black mb-3'>Find Top Diseases</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="numSymptoms">Number of Symptoms:</label>
+        <label htmlFor="numSymptoms" className='mt-5 mb-5 w-[20rem] p-4 px-6 text-[.7rem] md:text-[1rem] py-4 text-white rounded-lg  font-bold bg-black mb-3'>Number of Symptoms:</label>
         <input
           type="number"
           id="numSymptoms"
@@ -96,13 +96,13 @@ const TopDiseasesFinder: React.FC = () => {
 
         {[...Array(numSymptoms)].map((_, index) => (
           <div key={index}>
-            <label htmlFor={`symptom${index}`}>Symptom {index + 1}:</label>
+            <label htmlFor={`symptom${index}`} className='mt-6 w-[20rem]  px-6 text-[.7rem] md:text-[1rem] py-4 text-white rounded-lg  font-bold bg-black mb-3'>Symptom {index + 1}:</label>
             <input
               type="text"
               id={`symptom${index}`}
               value={symptoms[index]?.value || ''}
               onChange={(e) => handleSymptomChange(index, e.target.value)}
-            />
+              className='mt-3 mx-3 w-[10rem]  px-4 text-[.7rem] md:text-[1rem] py-2 text-white rounded-lg  font-bold bg-black mb-3'/>
           </div>
         ))}
 

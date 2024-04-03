@@ -17,8 +17,8 @@ const HomePage = () => {
                 <h1 className=' font-serif text-[3rem] md:text-[5rem] md:leading-[4.6rem] font-semibold text-cyan-950 leading-[3rem] '>Stay healthy. Stay blessed.</h1>
                 <p className='text-[.7rem] md:text-[1rem] md:leading-6 flex justify-start w-30 md:w-[30rem] text-gray-500'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi magni cumque fugiat maxime eligendi, laudantium voluptatum, enim, ipsum libero voluptate ipsam numquam?</p>
                 <div className='flex items-center justify-start gap-4 md:gap-8'>
-                    {/*<Link href={''}><button className=' text-[.7rem] md:text-[1rem] px-[.8rem] py-3 rounded-lg text-white font-bold bg-emerald-400 shadow-md shadow-gray-400'>Book appointment</button></Link>*/}
-                    <Link href='/search2'><button className='text-[.7rem] md:text-[1rem] px-[.8rem] py-3 rounded-lg text-cyan-950 font-bold bg-transparent shadow-md shadow-gray-400'>Predictor</button></Link>
+                    <Link href={'/howto'}><button className=' text-[.7rem] md:text-[1rem] px-[.8rem] py-3 rounded-lg text-white font-bold bg-emerald-400 shadow-md shadow-gray-400'>How To Use Guide</button></Link>
+                    <Link href='/search2'><button className='text-[.7rem] md:text-[1rem] px-[.8rem] py-3 rounded-lg text-cyan-950 font-bold bg-transparent shadow-md shadow-gray-400'>Disease Estimator</button></Link>
 
                 </div>
 

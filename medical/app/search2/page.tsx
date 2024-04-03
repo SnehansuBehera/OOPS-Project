@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 
 interface SymptomInput {
@@ -13,7 +14,8 @@ const TopDiseasesFinder: React.FC = () => {
   const [patients, setPatients] = useState<any[]>([]);
   const [selectedPatient, setSelectedPatient] = useState<string>('');
   const [topDiseases, setTopDiseases] = useState<{ name: string; count: number }[]>([]);
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false); // New state to track form submission
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [enteredSymptoms, setEnteredSymptoms] = useState<string[]>([]); // State to store entered symptoms
 
   useEffect(() => {
     fetchPatients();
@@ -36,9 +38,11 @@ const TopDiseasesFinder: React.FC = () => {
   const increaseNumsOfSym = () => {
     setNumSymptoms(numSymptoms + 1);
   }
-  const popTheSym = () => {
-    setNumSymptoms(numSymptoms - 1);
 
+  const popTheSym = (id: number) => {
+    const updatedSymptoms = symptoms.filter(symptom => symptom.id !== id);
+    setSymptoms(updatedSymptoms);
+    setNumSymptoms(numSymptoms - 1);
   }
 
   const handleNumSymptomsChange = (event: any) => {
@@ -66,16 +70,16 @@ const TopDiseasesFinder: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setIsSubmitted(true); // Set isSubmitted to true when the form is submitted
+    setIsSubmitted(true);
 
     try {
-      // Prepare data for API request
       const data = {
         patientId: selectedPatient,
         symptoms: symptoms.map(symptom => symptom.value).join(',')
       };
 
-      // Make API call to fetch top diseases
+      setEnteredSymptoms(symptoms.map(symptom => symptom.value));
+
       const response = await fetch('/api/top-diseases', {
         method: 'POST',
         headers: {
@@ -92,7 +96,6 @@ const TopDiseasesFinder: React.FC = () => {
       setTopDiseases(result.topDiseases);
     } catch (error) {
       console.error('Error:', error);
-      // Handle error
     }
   };
 
@@ -100,11 +103,19 @@ const TopDiseasesFinder: React.FC = () => {
     <div className='w-full p-14'>
       <h1 className='py-4 text-center text-[1.5rem] bg-zinc-500 text-white w-[80%] mx-auto font-mono font-bold rounded-lg my-4'>Add Symptoms</h1>
       <form onSubmit={handleSubmit}>
+        <div className='my-4 w-[80%] mx-auto'>
+          <select className='w-[50%] py-3 px-5 border-none bg-transparent rounded-lg shadow-sm shadow-slate-400' id="patients" value={selectedPatient} onChange={(e) => setSelectedPatient(e.target.value)}>
+            <option value="">Select a Patient</option>
+            {patients.map(patient => (
+              <option key={patient.id} value={patient.id}>{patient.name}</option>
+            ))}
+          </select>
+        </div>
 
-        <div className='w-[80%] mx-auto flex-1 flex-wrap'>
+        <div className='w-[80%] mx-auto flex flex-wrap'>
 
           {[...Array(numSymptoms)].map((_, index) => (
-            <>
+            <div key={index}>
               <input
                 className='my-2 mr-2 border-none bg-transparent rounded-lg shadow-sm shadow-slate-400 py-3 px-5'
                 type="text"
@@ -115,36 +126,35 @@ const TopDiseasesFinder: React.FC = () => {
                 }}
                 placeholder='Add Symptom'
               />
-              <button onClick={popTheSym} className='mr-8 py-3 px-4 bg-red-400 text-white text-[18px] font-mono font-bold rounded-xl'>Delete</button>
-            </>
-
-
+              <button onClick={() => popTheSym(index)} className='mr-8 py-3 px-4 bg-red-400 text-white text-[18px] font-mono font-bold rounded-xl'>Delete</button>
+            </div>
           ))}
-          <button onClick={increaseNumsOfSym} className='py-3 px-5 mr-3 border-2 border-black  text-black text-[18px] font-bold rounded-lg'>+</button>
+          <button onClick={increaseNumsOfSym} className='py-2 px-5 mr-3 border-2 border-black  text-black text-[18px] font-bold rounded-lg'>+</button>
 
-          <button className=' bg-green-400 px-5 py-4 rounded-lg font-mono font-bold text-white' type="submit">Submit</button>
+          <button className=' bg-green-400 px-5 py-2 rounded-lg font-mono font-bold text-white' type="submit">Submit</button>
 
         </div>
 
 
-        <br />
 
-        <label htmlFor="patients">Select Patient:</label>
-        <select id="patients" value={selectedPatient} onChange={(e) => setSelectedPatient(e.target.value)}>
-          <option value="">Select a Patient</option>
-          {patients.map(patient => (
-            <option key={patient.id} value={patient.id}>{patient.name}</option>
-          ))}
-        </select>
+
 
       </form>
 
       {isSubmitted && (
-        <ul>
-          {symptoms.map((symptom, index) => (
-            <li key={index}>{symptom.value}</li>
-          ))}
-        </ul>
+        <div className='w-[80%] mx-auto my-8'>
+          <ul className='flex flex-wrap gap-5'>
+            {enteredSymptoms.map((symptom, index) => (
+              <li key={index}>
+                <div className='px-10 py-5 flex flex-col justify-center items-center shadow-inner shadow-slate-200 rounded-lg text-center'>
+                  <Image src='/running-nose.png' alt='symptom' width={200} height={200} className='w-20' />
+                  <h1 className='font-bold text-lg text-gray-400 my-3'>{symptom.toUpperCase()}</h1>
+                  <button className='text-gray-400 font-semibold p-2 rounded-md'>Read More</button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
 
       <div>

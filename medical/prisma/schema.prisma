@@ -224,7 +224,11 @@ model Patient{
   id String @id @default(uuid())
   name String 
   age Int
-  sex String
+  weight Int
+  height Int
+  imageUrl String?
+  bloodgroup String
+  sex String 
   profileId String
   profile Profile @relation(fields: [profileId],references: [id],onDelete: Cascade)
   records Record[]

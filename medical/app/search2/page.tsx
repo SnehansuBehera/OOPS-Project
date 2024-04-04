@@ -107,7 +107,7 @@ const TopDiseasesFinder: React.FC = () => {
 
       if (response.ok) {
         console.log('Record added successfully');
-        router.push('/search3'); // Reload the page to reflect the changes
+        router.push(`/search2/${selectedPatient}`); // Reload the page to reflect the changes
       } else {
         throw new Error('Failed to add record');
       }

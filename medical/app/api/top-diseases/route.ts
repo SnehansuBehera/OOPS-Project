@@ -3,31 +3,39 @@ import { db } from '@/lib/db';
 import { NextResponse } from "next/server";
 export async function POST(req: Request) {
     try {
-        const { symptoms }: { symptoms: string[] } = await req.json();
-
+        const { symptoms }: { symptoms: string } = await req.json();
+        const symptomsArray = symptoms.split(',');
         // Fetch diseases from the database where symptom names match the provided symptoms
-        const topDiseases = await db.disease.findMany({
+        const topDiseases = await db.diseasea.findMany({
             where: {
-                symptoms: {
-                    some: {
-                        name: {
-                            in: symptoms
-                        }
-                    }
+              symptomas: {
+                some: {
+                  name: {
+                    in: symptomsArray
+                  }
                 }
+              }
             },
-            // Sort the diseases by the number of matching symptoms in descending order
-            orderBy: {
-                symptoms: {
-                    count: 'desc'
-                }
-            },
-            // Limit the result to top 3 diseases
-            take: 3
-        });
-
+            include: {
+              symptomas: true
+            }
+          });
+          
+          // Filter out diseases that don't contain all the provided symptoms
+          const filteredDiseases = topDiseases.filter(disease => {
+            const diseaseSymptoms = disease.symptomas.map(symptom => symptom.name);
+            return symptomsArray.every(symptom => diseaseSymptoms.includes(symptom));
+          });
+          const filteredDiseases2 = filteredDiseases.map(disease => ({
+            id: disease.id,
+            name: disease.name,
+            createdAt: disease.createdAt,
+            updatedAt: disease.updatedAt,
+            symptomas: disease.symptomas.map(symptom => symptom.name) // Extracting only the symptom names
+          }));
+      console.log(filteredDiseases2);
         // Return the top diseases as JSON response
-        return NextResponse.json(topDiseases);
+        return NextResponse.json(filteredDiseases2);
     } catch (error) {
         console.error('[TOP_DISEASES_POST]', error);
         // Return an internal server error response

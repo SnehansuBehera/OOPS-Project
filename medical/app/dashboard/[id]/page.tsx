@@ -6,9 +6,17 @@ import React, { useState } from 'react'
 const page = ({ params }: any) => {
 
     const [show, setShow] = useState(false);
+    const [visit, setVisit] = useState(false);
+    const [treat, setTreat] = useState(false);
 
     const showPatientHistory = () => {
         setShow(true);
+    }
+    const showVisitHistory = () => {
+        setVisit(true);
+    }
+    const showTreatment = () => {
+        setTreat(true);
     }
 
     return (
@@ -66,15 +74,59 @@ const page = ({ params }: any) => {
                     </div>
 
                 </div>
-                <div className='flex items-center justify-start gap-8 py-1 px-4'>
-                    <p className='font-bold text-black'>See Patient's Medical Records</p>
-                    <button onClick={showPatientHistory}><Image src='/next.png' alt='next' width={20} height={20} className='w-15' /></button>
+                <div className='flex gap-8 items-center justify-start'>
+                    <div className=' w-[50%]'>
+                        <div className='flex items-center justify-start gap-8 py-1 px-4'>
+                            <p className='font-bold text-black'>See Patient's Medical Records</p>
+                            <button onClick={showPatientHistory}><Image src='/next.png' alt='next' width={20} height={20} className='w-15' /></button>
+                        </div>
+                        {
+                            show && (
+                                <div className='px-4'>
+                                    <div className='bg-green-400 rounded-lg my-2 py-2 px-3 w-72 flex items-center justify-between gap-5'>
+                                        <p className='font-bold text-white'>Visit 1</p>
+                                        <button onClick={showVisitHistory}><Image src='/next.png' alt='next' width={20} height={20} className='w-15' /></button>
+                                    </div>
+                                </div>
+
+                            )
+
+
+                        }
+
+                    </div>
+                    {
+                        visit && (
+                            <div className='px-4 py-4 shadow-sm rounded-lg shadow-slate-400 flex flex-col gap-4'>
+                                <div>
+                                    <p className='text-[25px] font-medium text-gray-600 pb-4 border-b-2 border-slate-200'>Symptoms</p>
+                                    <p className='font-bold mt-3 text-gray-600'>Cold, Headache, Nausea, Cold, Headache, Nausea, Cold, Headache, Nausea</p>
+                                </div>
+                                <div>
+                                    <p className='text-[25px] font-medium text-gray-600 pb-4 border-b-2 border-slate-200'>Disease</p>
+                                    <p className='font-bold text-red-400 mt-3'>Covid</p>
+                                </div>
+                                <div className='flex items-center gap-4 justify-between py-3 px-4 bg-transparent shadow-sm shadow-gray-400 rounded-3xl w-[60%]'>
+                                    <p className='text-black font-bold text-[13px]'>Treatment</p>
+                                    <button onClick={showTreatment}><Image src='/next.png' alt='next' width={20} height={20} className='w-5' /></button>
+                                </div>
+                                {
+                                    treat && (
+                                        <div className='bg-transparent shadow-sm shadow-gray-400 rounded-md py-2 px-3'>
+                                            <p className='font-bold text-gray-600'>Drink Proper water</p>
+                                        </div>
+                                    )
+                                }
+                            </div>
+
+                        )
+
+
+                    }
                 </div>
-                {
-                    show && (
-                        <div>hello</div>
-                    )
-                }
+
+
+
             </div>
 
         </div>

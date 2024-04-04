@@ -14,6 +14,8 @@ const TopDiseasesFinder: React.FC = () => {
   const [patients, setPatients] = useState<any[]>([]);
   const [selectedPatient, setSelectedPatient] = useState<string>('');
   const [topDiseases, setTopDiseases] = useState<{ name: string; count: number }[]>([]);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [enteredSymptoms, setEnteredSymptoms] = useState<string[]>([]); // State to store entered symptoms
 
   useEffect(() => {
     fetchPatients();
@@ -91,47 +93,9 @@ const TopDiseasesFinder: React.FC = () => {
       }
 
       const result = await response.json();
-      console.log('Result:', result); // Add this line to log the result
-
-      // Check if topDiseases property exists in the result
-      if (Array.isArray(result) && result.length > 0) {
-        // Extracting only the names of diseases from the result
-        const diseaseNames = result.map((disease: any) => disease.name);
-        setTopDiseases(diseaseNames);
-      } else {
-        throw new Error('Top diseases data is missing in the response');
-      }
+      setTopDiseases(result.topDiseases);
     } catch (error) {
       console.error('Error:', error);
-    }
-  };
-  const handleAddRecord = async () => {
-    try {
-      // Prepare data for API request
-      const data = {
-        patientId: selectedPatient,
-        symptoms:symptoms.map(symptom => symptom.value).join(','),
-      };
-
-      // Make API call to add record
-      const response = await fetch('/api/record', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
-
-      if (response.ok) {
-        console.log('Record added successfully');
-        router.push("/") 
-        // Optionally, display a success message or perform any other action
-      } else {
-        throw new Error('Failed to add record');
-      }
-    } catch (error) {
-      console.error('Error adding record:', error);
-      // Handle error
     }
   };
 
@@ -194,20 +158,10 @@ const TopDiseasesFinder: React.FC = () => {
       )}
 
       <div>
-        {topDiseases.length > 0 ? (
-          <div>
-            <h2>Top Diseases:</h2>
-            <ul>
-              {topDiseases.map((disease, index) => (
-                <li key={index}>{disease}</li>
-              ))}
-            </ul>
-          </div>
-        ) : (
-          <p>No top diseases found.</p>
-        )}
+        {topDiseases.map((disease, index) => (
+          <p key={index}>{disease.name}: {disease.count}</p>
+        ))}
       </div>
-      <button onClick={handleAddRecord}>Add Record</button>
     </div>
   );
 };

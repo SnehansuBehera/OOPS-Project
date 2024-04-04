@@ -1,0 +1,14 @@
+disease				Symptoms
+1. Possible Serious Bacterial 	Convulsions,Fast Breathing, Severe Chest Indrawing, Nasal Flaring, Grunting or Bulging Fontanelle
+Infections			10 or more skin pustules, a big boil, Axillary temperature 37.5 degree, more.
+				Lethargic, unconcious, less than normal movements
+
+2. Local Bacterial Infection	Umbillicus red, Umbillicus draining, pus discharge from ear, less than 10 pustules
+
+3. Severe Jaundice		Palms and soles yellow or Age<24hours, Age>14days,pale stols
+4. Jaundice			Palms and soles not yellow,pale stools
+5. Severe Dehydration		Lethargic or unconcious, Sunken Eyes, Skin pinch goes back very slowly
+6. Some Dehydration		Restless, irritable, sunken eyes, Skin pinch goes back slowly
+7. No Dehydration		Not enough signs to classify as some or severe dehydration
+8. Severe Persistent Diarrhoea	Watery Stools,Diarrohoea lasting more than 14 days 
+9. Severe Dysentry		Watery stools, blood in stools

@@ -1,6 +1,6 @@
-'use client'
-
+"use client"
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 
 interface SymptomInput {
@@ -9,13 +9,13 @@ interface SymptomInput {
 }
 
 const TopDiseasesFinder: React.FC = () => {
-  const [numSymptoms, setNumSymptoms] = useState<number>(0);
+  const router=useRouter();
   const [symptoms, setSymptoms] = useState<SymptomInput[]>([]);
   const [patients, setPatients] = useState<any[]>([]);
   const [selectedPatient, setSelectedPatient] = useState<string>('');
-  const [topDiseases, setTopDiseases] = useState<{ name: string; count: number }[]>([]);
+  const [topDiseases, setTopDiseases] = useState<string[]>([]);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-  const [enteredSymptoms, setEnteredSymptoms] = useState<string[]>([]); // State to store entered symptoms
+  const [enteredSymptoms, setEnteredSymptoms] = useState<string[]>([]);
 
   useEffect(() => {
     fetchPatients();
@@ -36,50 +36,31 @@ const TopDiseasesFinder: React.FC = () => {
   };
 
   const increaseNumsOfSym = () => {
-    setNumSymptoms(numSymptoms + 1);
-  }
+    setSymptoms([...symptoms, { id: symptoms.length, value: '' }]);
+  };
 
   const popTheSym = (id: number) => {
     const updatedSymptoms = symptoms.filter(symptom => symptom.id !== id);
     setSymptoms(updatedSymptoms);
-    setNumSymptoms(numSymptoms - 1);
-  }
-
-  const handleNumSymptomsChange = (event: any) => {
-    const num = parseInt(event.target.value);
-    if (!isNaN(num)) {
-      setNumSymptoms(num);
-    }
   };
 
   const handleSymptomChange = (id: number, value: string) => {
     const updatedSymptoms = symptoms.map(symptom => symptom.id === id ? { ...symptom, value } : symptom);
-    if (value === '') {
-      const filteredSymptoms = updatedSymptoms.filter(symptom => symptom.value !== '');
-      setSymptoms(filteredSymptoms);
-    } else {
-      if (updatedSymptoms.length <= id) {
-        updatedSymptoms.push({ id, value });
-      } else {
-        updatedSymptoms[id] = { id, value };
-      }
-      setSymptoms(updatedSymptoms);
-    }
+    setSymptoms(updatedSymptoms);
   };
 
+ 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setIsSubmitted(true);
-
     try {
+      // Prepare data for API request
       const data = {
         patientId: selectedPatient,
         symptoms: symptoms.map(symptom => symptom.value).join(',')
       };
 
-      setEnteredSymptoms(symptoms.map(symptom => symptom.value));
-
+      // Make API call to fetch top diseases
       const response = await fetch('/api/top-diseases', {
         method: 'POST',
         headers: {
@@ -93,9 +74,45 @@ const TopDiseasesFinder: React.FC = () => {
       }
 
       const result = await response.json();
-      setTopDiseases(result.topDiseases);
+      console.log('Result:', result); // Add this line to log the result
+
+      // Check if topDiseases property exists in the result
+      if (Array.isArray(result) && result.length > 0) {
+        // Extracting only the names of diseases from the result
+        const diseaseNames = result.map((disease: any) => disease.name);
+        setTopDiseases(diseaseNames);
+      } else {
+        throw new Error('Top diseases data is missing in the response');
+      }
     } catch (error) {
       console.error('Error:', error);
+      // Handle error
+    }
+  };
+
+  const handleAddRecord = async () => {
+    try {
+      const data = {
+        patientId: selectedPatient,
+        symptoms: symptoms.map(symptom => symptom.value).join(','),
+      };
+
+      const response = await fetch('/api/record', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        console.log('Record added successfully');
+        router.push('/search3'); // Reload the page to reflect the changes
+      } else {
+        throw new Error('Failed to add record');
+      }
+    } catch (error) {
+      console.error('Error adding record:', error);
     }
   };
 
@@ -114,19 +131,19 @@ const TopDiseasesFinder: React.FC = () => {
 
         <div className='w-[80%] mx-auto flex flex-wrap'>
 
-          {[...Array(numSymptoms)].map((_, index) => (
+          {symptoms.map((symptom, index) => (
             <div key={index}>
               <input
                 className='my-2 mr-2 border-none bg-transparent rounded-lg shadow-sm shadow-slate-400 py-3 px-5'
                 type="text"
                 id={`symptom${index}`}
-                value={symptoms.find(symptom => symptom.id === index)?.value || ''}
+                value={symptom.value}
                 onChange={(e) => {
                   handleSymptomChange(index, e.target.value)
                 }}
                 placeholder='Add Symptom'
               />
-              <button onClick={() => popTheSym(index)} className='mr-8 py-3 px-4 bg-red-400 text-white text-[18px] font-mono font-bold rounded-xl'>Delete</button>
+              <button onClick={() => popTheSym(symptom.id)} className='mr-8 py-3 px-4 bg-red-400 text-white text-[18px] font-mono font-bold rounded-xl'>Delete</button>
             </div>
           ))}
           <button onClick={increaseNumsOfSym} className='py-2 px-5 mr-3 border-2 border-black  text-black text-[18px] font-bold rounded-lg'>+</button>
@@ -152,11 +169,21 @@ const TopDiseasesFinder: React.FC = () => {
         </div>
       )}
 
-      <div>
+<div>
+  {topDiseases && topDiseases.length > 0 ? (
+    <div>
+      <h2>Top Diseases:</h2>
+      <ul>
         {topDiseases.map((disease, index) => (
-          <p key={index}>{disease.name}: {disease.count}</p>
+          <li key={index}>{disease}</li>
         ))}
-      </div>
+      </ul>
+    </div>
+  ) : (
+    <p>No top diseases found.</p>
+  )}
+</div>
+      <button onClick={handleAddRecord} className='py-2 px-5 mt-4 bg-blue-400 text-white font-bold rounded-lg'>Add Record</button>
     </div>
   );
 };

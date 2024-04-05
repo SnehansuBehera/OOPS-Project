@@ -9,7 +9,7 @@ interface SymptomInput {
 }
 
 const TopDiseasesFinder: React.FC = () => {
-  const router=useRouter();
+  const router = useRouter();
   const [symptoms, setSymptoms] = useState<SymptomInput[]>([]);
   const [patients, setPatients] = useState<any[]>([]);
   const [selectedPatient, setSelectedPatient] = useState<string>('');
@@ -49,7 +49,7 @@ const TopDiseasesFinder: React.FC = () => {
     setSymptoms(updatedSymptoms);
   };
 
- 
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -169,21 +169,30 @@ const TopDiseasesFinder: React.FC = () => {
         </div>
       )}
 
-<div>
-  {topDiseases && topDiseases.length > 0 ? (
-    <div>
-      <h2>Top Diseases:</h2>
-      <ul>
-        {topDiseases.map((disease, index) => (
-          <li key={index}>{disease}</li>
-        ))}
-      </ul>
-    </div>
-  ) : (
-    <p>No top diseases found.</p>
-  )}
-</div>
-      <button onClick={handleAddRecord} className='py-2 px-5 mt-4 bg-blue-400 text-white font-bold rounded-lg'>Add Record</button>
+      <div className='w-[80%] mx-auto'>
+        {topDiseases && topDiseases.length > 0 ? (
+          <div>
+            <div className=' bg-slate-500 my-4 py-3 px-4 rounded-md'>
+              <h2 className='font-bold text-white'>Top Diseases:</h2>
+            </div>
+
+            <ul className='flex gap-4'>
+              {topDiseases.map((disease, index) => (
+                <li className='py-2 px-4 bg-red-400 font-bold text-white rounded-md' key={index}>{disease} *</li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <div className=' bg-slate-500 my-4 py-3 px-4 rounded-md'>
+            <p className='font-bold text-white'>No top diseases found.</p>
+          </div>
+
+        )}
+      </div>
+      <div className='w-[80%] mx-auto'>
+        <button onClick={handleAddRecord} className='py-2 px-5 mt-4 bg-blue-400 text-white font-bold rounded-lg'>Add Record</button>
+      </div>
+
     </div>
   );
 };

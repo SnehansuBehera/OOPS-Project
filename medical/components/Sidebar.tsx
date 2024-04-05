@@ -37,9 +37,16 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
 
         },
         {
+            icon: FaUserDoctor,
+            label: 'Worker',
+            active: pathname == '/doctor',
+            href: '/worker'
+
+        },
+        {
             icon: BiSearch,
-            label:'How To Use',
-            active: pathname=='/howto',
+            label: 'How To Use',
+            active: pathname == '/howto',
             href: '/howto'
         },
 

@@ -22,3 +22,13 @@ export async function PATCH(req: Request){
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
+export async function GET(req: Request){
+    try{
+        const profile = await currentProfile();
+
+        return NextResponse.json(profile);
+    }catch (error) {
+    console.error("[PROFILE_GET]", error);
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+}
